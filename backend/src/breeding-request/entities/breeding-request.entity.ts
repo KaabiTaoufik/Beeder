@@ -1,5 +1,5 @@
 import { Animal } from './../../animal/entities/animal.entity';
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('breeding_requests')
 export class BreedingRequest {

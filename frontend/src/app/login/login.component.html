@@ -1,41 +1,62 @@
 <div class="container" id="container" [ngClass]="{'right-panel-active':rightPanelActive}">
   <div class="form-container sign-up-container">
-    <form>
+    <form [formGroup]="signupForm" (ngSubmit)="signupUser()">
       <h1>Welcome.</h1>
       <span>Create an account to start your journey with breedr.</span>
-      <div class="inputs">
-        <span matPrefix><mat-icon>account_circle</mat-icon></span>
-        <label for="fullname">Fullname</label>
-        <input matInput type="text" placeholder="John Doe" name="fullname" id="fullname"/>
-        <span matPrefix><mat-icon>email</mat-icon></span>
-        <label for="email">Email</label>
-        <input matInput type="email" placeholder="johnDoe@email.com" name="email" id="email"/>
-        <span matPrefix><mat-icon>phone</mat-icon></span>
-        <label for="phone">Phone Number</label>
-        <input matInput type="text" placeholder="22105154" name="phone" id="phone"/>
-        <span matPrefix><mat-icon>lock</mat-icon></span>
-        <label for="password">Password</label>
-        <input matInput type="password" placeholder="******" name="email" id="password"/>
-        <span matPrefix><mat-icon>lock</mat-icon></span>
-        <label for="confirmPassword">Confirm Password</label>
-        <input matInput type="password" placeholder="******" name="email" id="confirmPassword"/>
+      <div class="inputs-container">
+        <div class="input">
+          <span matPrefix><mat-icon>account_circle</mat-icon></span>
+          <label>Fullname</label>
+          <input matInput type="text" placeholder="John Doe" formControlName="fullname"/>
+          <mat-error *ngIf="fullname && fullname.invalid && fullname.dirty">Fullname required.</mat-error>
+        </div>
+        <div class="input">
+          <span matPrefix><mat-icon>email</mat-icon></span>
+          <label>Email</label>
+          <input matInput type="email" placeholder="johnDoe@email.com" formControlName="email"/>
+          <mat-error *ngIf="sigunupEmail && sigunupEmail.invalid && sigunupEmail.dirty">Please enter a valid email.</mat-error>
+        </div>
+        <div class="input">
+          <span matPrefix><mat-icon>phone</mat-icon></span>
+          <label>Phone Number</label>
+          <input matInput type="text" placeholder="22105154" formControlName="phoneNumber"/>
+          <mat-error *ngIf="phoneNumber && phoneNumber.dirty && phoneNumber.invalid">Phone number must be 8 characters.</mat-error>
+        </div>
+        <div class="input">
+          <span matPrefix><mat-icon>lock</mat-icon></span>
+          <label>Password</label>
+          <input matInput type="password" placeholder="******" formControlName="password"/>
+          <mat-error *ngIf="signupPassword && signupPassword.invalid && signupPassword.dirty">Password must be at least 4 characters</mat-error>
+        </div>
+        <div class="input">
+          <span matPrefix><mat-icon>lock</mat-icon></span>
+          <label>Confirm Password</label>
+          <input matInput type="password" placeholder="******" formControlName="confirmPassword"/>
+          <mat-error *ngIf="confirmPassword && confirmPassword.dirty && confirmPassword.invalid">Please confirm your password.</mat-error>
+        </div>
       </div>
-      <button>Sign Up</button>
+      <button [ngClass]="{'disabled':signupForm.invalid}">Sign Up</button>
     </form>
   </div>
   <div class="form-container sign-in-container">
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
       <h1>Welcome back.</h1>
       <span>welcome back! Please enter your details.</span>
-      <div class="inputs">
-        <span matPrefix><mat-icon>email</mat-icon></span>
-        <label for="email1">Email</label>
-        <input matInput type="email" placeholder="johnDoe@email.com" name="email" id="email1"/>
-        <span matPrefix><mat-icon>lock</mat-icon></span>
-        <label for="password1">Password</label>
-        <input type="password" placeholder="*******" name="password" id="password1"/>
+      <div class="inputs-container">
+        <div class="input">
+          <span matPrefix><mat-icon>email</mat-icon></span>
+          <label>Email</label>
+          <input matInput type="email" placeholder="johnDoe@email.com" formControlName="email"/>
+          <mat-error *ngIf="email && email.dirty && email.invalid">Please enter a valid email.</mat-error>
+        </div>
+        <div class="input">
+          <span matPrefix><mat-icon>lock</mat-icon></span>
+          <label>Password</label>
+          <input type="password" placeholder="*******" formControlName="password"/>
+          <mat-error *ngIf="password && password.dirty && password.invalid">Password must be at least 4 characters.</mat-error>
+        </div>
       </div>
-      <button class="sign-in-btn">Sign In</button>
+      <button class="sign-in-btn" [ngClass]="{'disabled':loginForm.invalid}">Sign In</button>
     </form>
   </div>
   <div class="overlay-container">

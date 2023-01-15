@@ -6,32 +6,25 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AnimalModule } from './animal/animal.module';
 import { BreedingRequestModule } from './breeding-request/breeding-request.module';
+import { SharedModule } from './shared/shared.module';
 import configuration from './config/configuration';
-import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-    type: 'mongodb',// make global env
-    url: 'mongodb+srv://Breedr:Breedr@breedr.zq4zqzg.mongodb.net/test',// make global env
-    database: 'Breedr',
-    entities: [
-      __dirname + '/**/*.entity{.ts,.js}',
-    ],
-    ssl: true,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    autoLoadEntities: true,
-    synchronize: true, // remove in prod
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: '.env.local',
       load: [configuration],
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: (configService: ConfigService) =>
+        configService.get('database'),
+      inject: [ConfigService],
     }),
     UserModule,
     AnimalModule,
     BreedingRequestModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

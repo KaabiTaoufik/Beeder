@@ -19,6 +19,7 @@ import { AnimalsFilterComponent } from './animals-filter/animals-filter.componen
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatFormFieldModule,
     FormsModule,
-    HttpClientModule],
+    HttpClientModule,
+    ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
