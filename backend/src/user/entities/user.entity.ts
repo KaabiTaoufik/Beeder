@@ -1,6 +1,6 @@
-import { Animal } from './../../animal/entities/animal.entity';
-import { Timestamp } from './../../util/entities/timestamp.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Animal } from "./../../animal/entities/animal.entity";
+import { Timestamp } from "./../../util/entities/timestamp.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users')
 export class User extends Timestamp {
@@ -18,7 +18,10 @@ export class User extends Timestamp {
 
   @Column()
   password: string;
-
+  @Column({
+    select: false,
+  })
+  salt: string;
   @OneToMany((type) => Animal, (animal) => animal.owner)
   animals: Animal[];
 }
