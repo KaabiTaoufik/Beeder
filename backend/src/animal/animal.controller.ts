@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-import { animalFilters } from 'src/util/entities/animalFilters.entity';
 import { AnimalType } from 'src/util/enums/animal.enum';
 import { Gender } from 'src/util/enums/gender.enum';
 import { AnimalService } from './animal.service';

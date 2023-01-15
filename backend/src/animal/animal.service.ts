@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { animalFilters } from 'src/util/entities/animalFilters.entity';
 import { Gender } from 'src/util/enums/gender.enum';
 import { FindManyOptions, Repository } from 'typeorm';
 import { CreateAnimalDto } from './dto/create-animal.dto';
