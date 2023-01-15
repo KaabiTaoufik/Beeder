@@ -11,7 +11,13 @@ import { LoginComponent } from './login/login.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select"
 import {MatButtonModule} from "@angular/material/button";
+import { AnimalsListComponent } from './animals-list/animals-list.component';
+import { AnimalComponent } from './animal/animal.component';
+import { AnimalsFilterComponent } from './animals-filter/animals-filter.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -20,8 +26,21 @@ import {MatButtonModule} from "@angular/material/button";
     HomeComponent,
     AnimalDetailsComponent,
     LoginComponent,
+    AnimalsListComponent,
+    AnimalComponent,
+    AnimalsFilterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgImageSliderModule, NoopAnimationsModule, MatInputModule, MatIconModule, MatButtonModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgImageSliderModule,
+    NoopAnimationsModule,
+    MatInputModule,
+    MatIconModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
