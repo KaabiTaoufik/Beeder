@@ -1,16 +1,35 @@
-<mat-form-field appearance="fill">
-    <mat-label>Gender</mat-label>
-    <mat-select (selectionChange)="selectGender($event)">
-      <mat-option *ngFor="let gender of genderList; let i = index" [value]="i">
-        {{gender}}
-      </mat-option>
-  </mat-select>
-
-  </mat-form-field><mat-form-field appearance="fill">
-    <mat-label>Animal</mat-label>
-    <mat-select (selectionChange)="selectAnimal($event)">
-      <mat-option *ngFor="let animal of animalsList; let i = index" [value]="i">
-        {{animal}}
-      </mat-option>
-  </mat-select>
-  </mat-form-field>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <mat-form-field appearance="fill">
+          <mat-label>Gender</mat-label>
+          <mat-select (selectionChange)="selectGender($event)">
+            <mat-option *ngFor="let gender of genderList; let i = index" [value]="i">
+              {{gender}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill">
+          <mat-label>Animal</mat-label>
+          <mat-select (selectionChange)="selectAnimal($event)">
+            <mat-option *ngFor="let animal of animalsList; let i = index" [value]="i">
+              {{animal}}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+    </div>
+      <div class="col" > 
+        <input type="search" 
+        class="form-control rounded" 
+        placeholder="Breed" 
+        aria-label="Search" 
+        aria-describedby="search-addon"
+        style="width: 200px; height: 50px;"
+        [(ngModel)]="selectedBreed"
+        (ngModelChange)="getAnimalsByFilter()" />
+        
+      </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Constants } from 'src/Constants';
 import { AnimalType } from '../Enums/animalTypeEnum';
 import { Gender } from '../Enums/genderEnum';
 
@@ -9,12 +11,14 @@ import { Gender } from '../Enums/genderEnum';
 })
 export class AnimalsFilterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
   genderList: Array<string> = Object.keys(Gender).filter(key => isNaN(+key));
   animalsList: Array<string> = Object.keys(AnimalType).filter(key => isNaN(+key));
   selectedGender: Gender | undefined;
   selectedAnimalType: AnimalType | undefined;
+  selectedBreed: string | undefined;
   ngOnInit(): void {
+    this.getAnimalsByFilter();
   }
 
   selectGender(event: any): void {
@@ -29,6 +33,7 @@ export class AnimalsFilterComponent implements OnInit {
       default:
         this.selectedGender = undefined;
     }
+    this.getAnimalsByFilter();
   }
   selectAnimal(event: any): void {
     switch(event.value)
@@ -48,12 +53,29 @@ export class AnimalsFilterComponent implements OnInit {
       default:
         this.selectedAnimalType = undefined;
     }
+    this.getAnimalsByFilter();
   }
   
   getAnimalsByFilter(){
-    const filter = {
-      "gender": this.selectedGender,
-      "type": this.selectedAnimalType
+    let params = new HttpParams();
+    if(this.selectedGender != undefined)
+    {
+      params = params.set('gender', this.selectedGender.toString());
     }
+    if(this.selectedAnimalType != undefined)
+    {
+      params = params.set('type', this.selectedAnimalType.toString());
+    }
+    if(this.selectedBreed != undefined)
+    {
+      params = params.set('breed', this.selectedBreed.toString());
+    }
+    const animalURL = Constants.API_URL + '/animal'
+    this.httpClient.get(animalURL, { params})
+    .subscribe(
+      response => {
+        console.log(response);
+      }
+    )
   }
 }
