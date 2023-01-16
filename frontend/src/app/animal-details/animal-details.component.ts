@@ -2,6 +2,7 @@ import { AnimalsService } from './../services/animals.service';
 import { Animal } from './../models/animal';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Gender } from '../Enums/genderEnum';
 
 @Component({
   selector: 'app-animal-details',
@@ -37,31 +38,39 @@ export class AnimalDetailsComponent implements OnInit {
 
   loadAnimal(id: string) {
     this.animalsService.getAnimalWithImages(id).subscribe((animal) => {
-      console.log(animal);
       this.animal = animal;
-      this.images = this.getImages();
-      console.log(this.images);
+      this.setAnimalImagesToDisplay(this.animal);
     });
   }
 
-  getImages() {
+  setAnimalImagesToDisplay(animal: Animal): void {
     if (
-      this.animal.images.length > 0 &&
-      this.animal.images.every((image) => typeof image === 'string')
+      animal.images.length > 0 &&
+      animal.images.every((image) => typeof image === 'string')
     ) {
-      return this.animal.images.map((image) => ({
+      this.images = animal.images.map((image) => ({
         image: image,
         thumbImage: image,
         alt: 'animal image',
       }));
     } else {
-      return [
+      this.images = [
         {
           image: 'assets/blank_image.jpg',
           thumbImage: 'assets/blank_image.jpg',
           alt: 'animal image',
         },
       ];
+    }
+  }
+
+  getGenderStr(gender: Gender | null): string {
+    if (gender == null) {
+      return '---';
+    } else if (gender === Gender.Male) {
+      return 'Male';
+    } else {
+      return 'Female';
     }
   }
 

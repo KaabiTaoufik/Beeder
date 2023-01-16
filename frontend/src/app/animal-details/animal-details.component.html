@@ -10,19 +10,19 @@
 			</h2>
 			<div class="row">
 				<div class="detail">
-					<span class="info">Goat</span>
+					<span class="info">{{ animal.type }}</span>
 					<img src="assets/paw.svg" alt="logo" class="logo">
 				</div>
 			</div>
 			<div class="row">
 				<div class="detail">
-					<span class="info">Male</span>
+					<span class="info">{{ getGenderStr(animal.gender) }}</span>
 					<img src="assets/sex.svg" alt="logo" class="logo">
 				</div>
 			</div>
 			<div class="row">
 				<div class="detail">
-					<span class="info">17</span>
+					<span class="info">{{ animal.age }}</span>
 					<img src="assets/age.svg" alt="logo" class="logo">
 				</div>
 			</div>
