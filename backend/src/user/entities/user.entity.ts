@@ -1,7 +1,7 @@
-import { Animal } from "./../../animal/entities/animal.entity";
-import { Timestamp } from "./../../util/entities/timestamp.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "../../auth/enum/role.enum";
+import { Animal } from './../../animal/entities/animal.entity';
+import { Timestamp } from './../../util/entities/timestamp.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../../auth/enum/role.enum';
 
 @Entity('users')
 export class User extends Timestamp {
@@ -17,7 +17,7 @@ export class User extends Timestamp {
   @Column()
   phoneNumber: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
   @Column({
     select: false,
