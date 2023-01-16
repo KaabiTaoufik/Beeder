@@ -14,7 +14,7 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    delete createUserDto.confirmedPassword;
+    delete createUserDto.confirmPassword;
     const user = this.userRepository.create(createUserDto);
     user.salt = await bcrypt.genSalt();
     user.password = await bcrypt.hash(user.password, user.salt);
@@ -45,6 +45,11 @@ export class UserService {
   async emailExists(email: string): Promise<boolean> {
     return await this.userRepository.exist({
       where: { email },
+    });
+  }
+  async phoneNumberExists(phoneNumber: string): Promise<boolean> {
+    return await this.userRepository.exist({
+      where: { phoneNumber },
     });
   }
 }

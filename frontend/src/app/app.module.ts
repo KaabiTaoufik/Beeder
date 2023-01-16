@@ -13,6 +13,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {MatMenuModule} from "@angular/material/menu";
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -22,8 +25,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     AnimalDetailsComponent,
     LoginComponent,
   ],
-    imports: [BrowserModule, AppRoutingModule, NgImageSliderModule, NoopAnimationsModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, NgImageSliderModule, NoopAnimationsModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule, HttpClientModule, MatMenuModule],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

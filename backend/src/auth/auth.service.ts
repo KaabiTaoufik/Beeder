@@ -12,13 +12,15 @@ export class AuthService {
   ) {}
 
   async register(createUserDto: CreateUserDto) {
-    if (createUserDto.password != createUserDto.confirmedPassword)
+    if (createUserDto.password != createUserDto.confirmPassword)
       throw new HttpException(
         'Passwords do not match.',
         HttpStatus.BAD_REQUEST,
       );
     if (await this.userService.emailExists(createUserDto.email))
       throw new HttpException('Email already exists.', HttpStatus.BAD_REQUEST);
+    if (await this.userService.phoneNumberExists(createUserDto.phoneNumber))
+      throw new HttpException('Number already exists.', HttpStatus.BAD_REQUEST);
     const user = await this.userService.create(createUserDto);
     delete user.password;
     delete user.salt;

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RouteNames } from '../Route-Names.model';
+import {Component, OnInit} from '@angular/core';
+import {RouteNames} from '../Route-Names.model';
 import {Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,12 +12,26 @@ export class NavBarComponent implements OnInit {
 
   HomeRoute: string = RouteNames.HOME;
   loginRoute: string = RouteNames.LOGIN;
-  constructor(private router : Router) { }
+  token: string | null | undefined;
+  RequestsRoute:string = RouteNames.REQUESTS;
+
+  constructor(private router: Router , private authService : AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
   navigateToLogin() {
     this.router.navigate([this.loginRoute]);
+  }
+
+
+  logout() {
+    localStorage.clear()
+    this.router.navigate([''])
+  }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
 }
