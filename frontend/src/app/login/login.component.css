@@ -63,11 +63,10 @@ form {
   flex-direction: column;
   padding: 0 50px;
   height: 100%;
-  text-align: center;
 }
 .inputs-container{
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 input {
   background: #FFE8C5;
@@ -75,6 +74,7 @@ input {
   border-bottom: 2px solid #778289;
   margin-bottom: 20px;
   width: 100%;
+  font-size: 18px;
 }
 input:focus{
   outline: none;
@@ -86,8 +86,9 @@ input:focus{
   cursor : pointer;
 }
 label{
-  margin: 0;
   float: left;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 .container {
   border-radius: 10px;
@@ -214,6 +215,7 @@ label{
 mat-icon{
   position: absolute;
   margin-top: 20px;
+  margin-bottom: 10px;
   right: 60px;
 }
 .disabled{
@@ -226,4 +228,8 @@ mat-error{
   margin-bottom: 20px;
   float: left;
   color: white;
+  font-size: 18px;
+}
+input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0 30px #FFE8C5 inset;
 }

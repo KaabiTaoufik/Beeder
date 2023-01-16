@@ -6,6 +6,11 @@ import {LoginComponent} from "./login/login.component";
 
 export const APP_ROUTES: Routes = [
   {path: '', component: HomeComponent}, // should be changed to our default page
-  {path: 'login', component: LoginComponent},
+  {path: RouteNames.LOGIN, component: LoginComponent},
   {path: RouteNames.ANIMAL_DETAILS, component: AnimalDetailsComponent},
+  {path: '**' , redirectTo : RouteNames.HOME}
+  /*
+  use canActivate to protect routes like so :
+  {path: RouteNames.ANIMAL_DETAILS, component: AnimalDetailsComponent , canActivate: [AuthGuard]},
+  */
 ];

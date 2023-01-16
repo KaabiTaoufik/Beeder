@@ -35,6 +35,7 @@
           <mat-error *ngIf="confirmPassword && confirmPassword.dirty && confirmPassword.invalid">Please confirm your password.</mat-error>
         </div>
       </div>
+      <mat-error *ngIf="signupErrorMessage">{{signupErrorMessage}}</mat-error>
       <button [ngClass]="{'disabled':signupForm.invalid}">Sign Up</button>
     </form>
   </div>
@@ -56,6 +57,7 @@
           <mat-error *ngIf="password && password.dirty && password.invalid">Password must be at least 4 characters.</mat-error>
         </div>
       </div>
+      <mat-error *ngIf="loginErrorMessage">{{loginErrorMessage}}</mat-error>
       <button class="sign-in-btn" [ngClass]="{'disabled':loginForm.invalid}">Sign In</button>
     </form>
   </div>

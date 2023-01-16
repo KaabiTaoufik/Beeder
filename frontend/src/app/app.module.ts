@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from "@angular/forms";
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule],
-  providers: [],
+  providers: [AuthGuard],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

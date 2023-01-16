@@ -9,8 +9,8 @@
            [routerLinkActiveOptions]="{exact:true}">Home</a>
       </li>
       <li class="nav-item col col-md-offset-0">
-        <a class="nav-link" [routerLink]="[HomeRoute]" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact:true}">Requests</a>
+        <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active"
+          *ngIf="isLoggedIn()" [routerLinkActiveOptions]="{exact:true}">Requests</a>
       </li>
       <li class="col col-md-offset-0">
         <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;">
@@ -18,8 +18,9 @@
         </a>
       </li>
       <div class="float-right margin-right-50">
-        <li class="col col-md-offset-0">
-          <button type="button" class="btn btn-primary btn-sm btn-GetStarted" (click)="navigateToLogin()">Get Started</button>
+        <li class="col col-md-offset-0" [ngSwitch]="isLoggedIn()">
+          <button *ngSwitchCase="true" type="button" class="btn btn-GetStarted btn-primary btn-sm" (click)="logout()">Logout</button>
+          <button *ngSwitchDefault type="button" class="btn btn-primary btn-sm btn-GetStarted" (click)="navigateToLogin()">Get Started</button>
         </li>
       </div>
     </ul>

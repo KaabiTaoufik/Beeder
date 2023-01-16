@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -12,8 +13,11 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
+    delete createUserDto.confirmPassword;
     const user = this.userRepository.create(createUserDto);
+    user.salt = await bcrypt.genSalt();
+    user.password = await bcrypt.hash(user.password, user.salt);
     return this.userRepository.save(user);
   }
 
@@ -31,5 +35,21 @@ export class UserService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne({
+      where: { email },
+    });
+  }
+  async emailExists(email: string): Promise<boolean> {
+    return await this.userRepository.exist({
+      where: { email },
+    });
+  }
+  async phoneNumberExists(phoneNumber: string): Promise<boolean> {
+    return await this.userRepository.exist({
+      where: { phoneNumber },
+    });
   }
 }

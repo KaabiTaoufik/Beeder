@@ -1,8 +1,9 @@
 .moto-container {
   height: 400px;
-  width: 1261px;
+  width: 100%;
   left: 105px;
   top: 111px;
+  margin-top: 20px;
   border-radius: 20px;
   background: #fed393;
 }
