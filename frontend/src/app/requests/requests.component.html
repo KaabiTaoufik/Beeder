@@ -13,9 +13,8 @@
             <div *ngIf="shouldShowRequest(incomingRequest)" class="card-body list-group-item">
               <p>full name : {{incomingRequest.from.fullname}}</p>
               <p>phone number : {{incomingRequest.from.phoneNumber}}</p>
-              <button class ="btn btn-success " style="color: greenyellow"(click)="approve(incomingRequest)">approve</button><button style="color: red" class ="btn btn-danger m-2" (click)="decline(incomingRequest)">decline</button></div>
-          </div>
+              <button class ="btn btn-success " style="color: greenyellow"(click)="approve(incomingRequest)">approve</button><button style="color: red" class ="btn btn-danger m-2" (click)="decline(incomingRequest)">decline</button></div>          </div>
         </div>
         </div>
-
+      </div>
 </div>
