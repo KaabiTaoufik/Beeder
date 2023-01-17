@@ -20,6 +20,9 @@ export class AuthService {
     return this.http.post<User>(BASE_URL+SIGNUP_URL,{...addUserDto});
   }
   isLoggedIn(): boolean {
-    return localStorage.getItem('token') != null;
+    return this.getToken() != null;
+  }
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }

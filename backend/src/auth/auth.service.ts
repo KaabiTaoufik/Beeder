@@ -40,7 +40,7 @@ export class AuthService {
         'Verifiy your credentials',
         HttpStatus.BAD_REQUEST,
       );
-    const payload: JwtPayloadDto = { email: user.email };
+    const payload: JwtPayloadDto = { username: user.email, password: user.password };
     const jwt = this.jwtService.sign(payload);
     delete user.password;
     delete user.salt;
