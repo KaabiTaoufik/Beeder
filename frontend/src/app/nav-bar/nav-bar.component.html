@@ -8,21 +8,23 @@
         <a [routerLink]="[HomeRoute]" class="nav-link" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}">Home</a>
       </li>
-      <li class="nav-item col col-md-offset-0">
-        <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active"
-          *ngIf="isLoggedIn()" [routerLinkActiveOptions]="{exact:true}">Requests</a>
+      <li class="nav-item nav-item margin-left-50">
+        <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+          [routerLinkActiveOptions]="{exact:true}">Requests</a>
       </li>
-      <li class="col col-md-offset-0">
-        <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;">
-          Breed<span style="color: white">r</span>
-        </a>
+      <li class="nav-item col">
+        <a class="nav-link" [routerLink]="[AddAnimalRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+          [routerLinkActiveOptions]="{exact:true}">Add an animal</a>
       </li>
-      <div class="float-right margin-right-50">
-        <li class="col col-md-offset-0" [ngSwitch]="isLoggedIn()">
+          <li class="col col-md-offset-0">
+            <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;">
+              Breed<span style="color: white">r</span>
+            </a>
+          </li>
+        <li class="nav-item" [ngSwitch]="isLoggedIn()">
           <button *ngSwitchCase="true" type="button" class="btn btn-GetStarted btn-primary btn-sm" (click)="logout()">Logout</button>
           <button *ngSwitchDefault type="button" class="btn btn-primary btn-sm btn-GetStarted" (click)="navigateToLogin()">Get Started</button>
         </li>
-      </div>
     </ul>
   </div>
 </nav>
