@@ -21,6 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from "./guards/auth.guard";
 import { AddAnimalComponent } from './add-animal/add-animal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AnimalItemComponent } from './animal-item/animal-item.component';
+import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
+import { DatepipePipe } from './datepipe.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AnimalComponent,
     AnimalsFilterComponent,
     AddAnimalComponent,
+    AnimalItemComponent,
+    LoadingCircleComponent,
+    DatepipePipe,
   ],
   imports: [
     BrowserModule,

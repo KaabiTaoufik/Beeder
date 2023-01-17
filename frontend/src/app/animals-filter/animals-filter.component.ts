@@ -1,23 +1,25 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Constants } from 'src/app/constants/Constants';
 import { AnimalType } from '../Enums/animalTypeEnum';
 import { Gender } from '../Enums/genderEnum';
-
 @Component({
   selector: 'app-animals-filter',
   templateUrl: './animals-filter.component.html',
   styleUrls: ['./animals-filter.component.css'],
 })
 export class AnimalsFilterComponent implements OnInit {
-  constructor(private httpClient: HttpClient) {}
+  constructor() { }
   genderList: Array<string> = Object.keys(Gender).filter((key) => isNaN(+key));
   animalsList: Array<string> = Object.keys(AnimalType).filter((key) =>
     isNaN(+key)
   );
   selectedGender: Gender | undefined;
   selectedAnimalType: AnimalType | undefined;
-  selectedBreed: string | undefined;
+  selectedBreed: string | undefined;  
+  @Output()
+  changeFilterEvent = new EventEmitter<string>();
+
   ngOnInit(): void {
     this.getAnimalsByFilter();
   }
@@ -56,19 +58,18 @@ export class AnimalsFilterComponent implements OnInit {
   }
 
   getAnimalsByFilter() {
-    let params = new HttpParams();
+    let filter: any = {};
+
     if (this.selectedGender != undefined) {
-      params = params.set('gender', this.selectedGender.toString());
+      filter.gender = this.selectedGender.toString();
     }
     if (this.selectedAnimalType != undefined) {
-      params = params.set('type', this.selectedAnimalType.toString());
+      filter.type = this.selectedAnimalType.toString();
     }
     if (this.selectedBreed != undefined) {
-      params = params.set('breed', this.selectedBreed.toString());
+      filter.breed = this.selectedBreed.toString();
     }
-    const animalURL = Constants.API_URL + '/animal';
-    this.httpClient.get(animalURL, { params }).subscribe((response) => {
-      console.log(response);
-    });
+
+    this.changeFilterEvent.emit(filter);
   }
 }

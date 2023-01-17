@@ -39,6 +39,8 @@ export class AnimalDetailsComponent implements OnInit {
     });
   }
 
+
+
   loadAnimal(id: string) {
     this.animalsService.getAnimalWithImages(id).subscribe(
       (animal) => {
@@ -57,24 +59,7 @@ export class AnimalDetailsComponent implements OnInit {
   }
 
   setAnimalImagesToDisplay(animal: Animal): void {
-    if (
-      animal.images.length > 0 &&
-      animal.images.every((image) => typeof image === 'string')
-    ) {
-      this.images = animal.images.map((image) => ({
-        image: image,
-        thumbImage: image,
-        alt: 'animal image',
-      }));
-    } else {
-      this.images = [
-        {
-          image: 'assets/blank_image.jpg',
-          thumbImage: 'assets/blank_image.jpg',
-          alt: 'animal image',
-        },
-      ];
-    }
+    this.images = this.animalsService.getAnimalImagesToDisplay(animal);
   }
 
   getGenderStr(gender: Gender | null): string {

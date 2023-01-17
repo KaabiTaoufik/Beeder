@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
 import { addAnimalDto } from '../dto/addAnimalDto';
 import { BASE_URL } from '../helpers/constants';
-import { FormRecord } from '@angular/forms';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -58,5 +57,25 @@ export class AnimalsService {
     });
   }
 
+  getAnimalImagesToDisplay(animal: Animal): any[] {
+    if (
+      animal.images.length > 0 &&
+      animal.images.every((image) => typeof image === 'string')
+    ) {
+      return animal.images.map((image) => ({
+        image: image,
+        thumbImage: image,
+        alt: 'animal image',
+      }));
+    } else {
+      return [
+        {
+          image: 'assets/blank_image.jpg',
+          thumbImage: 'assets/blank_image.jpg',
+          alt: 'animal image',
+        },
+      ];
+    }
+  }
 }
 
