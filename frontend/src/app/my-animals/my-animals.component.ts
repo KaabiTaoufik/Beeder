@@ -12,7 +12,6 @@ export class MyAnimalsComponent implements OnInit {
   animals : Animal[] = new Array<Animal>()
   isLoading : boolean = true;
   constructor(private animalService : AnimalsService, private authService : AuthService) {
-    console.log(this.authService.getUser())
     this.animalService.getAnimalsByUser(this.authService.getUser().id).subscribe(
       (resp) =>{
         this.animals = resp

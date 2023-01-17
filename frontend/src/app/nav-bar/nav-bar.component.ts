@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   token: string | null | undefined;
   RequestsRoute: string = RouteNames.REQUESTS;
   AddAnimalRoute: string = RouteNames.ADD_ANIMAL;
-
+  MyAnimalsRoute : string = RouteNames.MY_ANIMALS
   constructor(private router: Router , private authService : AuthService) {
   }
 

@@ -10,7 +10,11 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="[AddAnimalRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
-         [routerLinkActiveOptions]="{exact:true}">Add an animal</a>
+         [routerLinkActiveOptions]="{exact:true}">Add Animal</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[MyAnimalsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+         [routerLinkActiveOptions]="{exact:true}">My Animals</a>
     </li>
   </ul>
   <ul class="nav mx-auto w-50 justify-content-center">

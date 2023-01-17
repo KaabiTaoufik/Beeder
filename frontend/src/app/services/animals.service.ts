@@ -80,7 +80,9 @@ export class AnimalsService {
   }
   getAnimalsByUser(ownerId : string){
     const  token = this.authService.getToken()
+    const shouldEncodeImages = true;
     return this.http.get<Animal[]>(BASE_URL+MY_ANIMALS_URL,{
+      params: {  shouldEncodeImages },
       responseType: 'json',
       headers: new HttpHeaders().append('Authorization', `Bearer ${token!.substring(1, token!.length - 1)}`)
     })
