@@ -57,6 +57,27 @@ export class AnimalsService {
       sub.error(new Error('token undefined'));
     });
   }
+
+  getAnimalImagesToDisplay(animal: Animal): any[] {
+    if (
+      animal.images.length > 0 &&
+      animal.images.every((image) => typeof image === 'string')
+    ) {
+      return animal.images.map((image) => ({
+        image: image,
+        thumbImage: image,
+        alt: 'animal image',
+      }));
+    } else {
+      return [
+        {
+          image: 'assets/blank_image.jpg',
+          thumbImage: 'assets/blank_image.jpg',
+          alt: 'animal image',
+        },
+      ];
+    }
+  }
   getAnimalsByUser(ownerId : string){
     const  token = this.authService.getToken()
     return this.http.get<Animal[]>(BASE_URL+MY_ANIMALS_URL,{

@@ -14,7 +14,7 @@
       <mat-form-field appearance="fill">
           <mat-label>Animal</mat-label>
           <mat-select (selectionChange)="selectAnimal($event)">
-            <mat-option *ngFor="let animal of animalsList; let i = index" [value]="i">
+            <mat-option *ngFor="let animal of animalsList;" [value]="animal">
               {{animal}}
             </mat-option>
         </mat-select>
