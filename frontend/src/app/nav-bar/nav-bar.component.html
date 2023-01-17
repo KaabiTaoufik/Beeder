@@ -1,30 +1,33 @@
-<nav class="navbar navbar-expand-sm">
-  <div class="col">
-    <ul class="nav navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item margin-left-50">
-        <a [routerLink]="[HomeRoute]" class="nav-link" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact:true}">Home</a>
-      </li>
-      <li class="nav-item nav-item margin-left-50">
-        <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
-          [routerLinkActiveOptions]="{exact:true}">Requests</a>
-      </li>
-      <li class="nav-item col">
-        <a class="nav-link" [routerLink]="[AddAnimalRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
-          [routerLinkActiveOptions]="{exact:true}">Add an animal</a>
-      </li>
-          <li class="col col-md-offset-0">
-            <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;">
-              Breed<span style="color: white">r</span>
-            </a>
-          </li>
-        <li class="nav-item" [ngSwitch]="isLoggedIn()">
-          <button *ngSwitchCase="true" type="button" class="btn btn-GetStarted btn-primary btn-sm" (click)="logout()">Logout</button>
-          <button *ngSwitchDefault type="button" class="btn btn-primary btn-sm btn-GetStarted" (click)="navigateToLogin()">Get Started</button>
-        </li>
+<nav class="navbar navbar-expand-sm w-100">
+  <ul class="nav w-25 margin-left-50">
+    <li class="nav-item">
+      <a [routerLink]="[HomeRoute]" class="nav-link" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact:true}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+         [routerLinkActiveOptions]="{exact:true}">Requests</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[AddAnimalRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+         [routerLinkActiveOptions]="{exact:true}">Add an animal</a>
+    </li>
+  </ul>
+  <ul class="nav mx-auto w-50 justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;" [routerLink]="[HomeRoute]">
+        Breed<span style="color: white">r</span>
+      </a>
+    </li>
     </ul>
-  </div>
+  <ul class="nav w-25 justify-content-end margin-right-50">
+    <li class="nav-item" [ngSwitch]="isLoggedIn()">
+      <button *ngSwitchCase="true" type="button" class="btn btn-GetStarted btn-primary btn-sm" (click)="logout()">
+        Logout
+      </button>
+      <button *ngSwitchDefault type="button" class="btn btn-primary btn-sm btn-GetStarted" (click)="navigateToLogin()">
+        Get Started
+      </button>
+    </li>
+  </ul>
 </nav>
