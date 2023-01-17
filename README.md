@@ -29,3 +29,7 @@
 ## About The Project 
 ![screenshot](screentshots/screenshots.png)
 Breedr allows its users to add their animals and control who they breed with as they wish.
+### Built With
+frameworks used in this project
+* [![Angular][Angular.io]][https://angular.io/]
+* [![Bootstrap][Bootstrap.com]][https://getbootstrap.com]
