@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
 import { addAnimalDto } from '../dto/addAnimalDto';
-import { BASE_URL } from '../helpers/constants';
+import {BASE_URL, MY_ANIMALS_URL} from '../helpers/constants';
 import { FormRecord } from '@angular/forms';
 import { AuthService } from './auth.service';
 
@@ -57,6 +57,12 @@ export class AnimalsService {
       sub.error(new Error('token undefined'));
     });
   }
-
+  getAnimalsByUser(ownerId : string){
+    const  token = this.authService.getToken()
+    return this.http.get<Animal[]>(BASE_URL+MY_ANIMALS_URL,{
+      responseType: 'json',
+      headers: new HttpHeaders().append('Authorization', `Bearer ${token!.substring(1, token!.length - 1)}`)
+    })
+  }
 }
 

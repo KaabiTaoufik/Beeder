@@ -1,0 +1,6 @@
+<div class="row" *ngIf="!isLoading">
+  <app-animal-item class="col-md-4" *ngFor="let animal of animals" [animal]="animal"></app-animal-item>
+</div>
+<div class="row loading-circle-container" *ngIf="isLoading">
+  <app-loading-circle></app-loading-circle>
+</div>
