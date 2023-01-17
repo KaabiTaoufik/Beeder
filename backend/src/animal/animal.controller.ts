@@ -25,8 +25,6 @@ import { diskStorage } from 'multer';
 import configuration from 'src/config/configuration';
 import { AuthGuard } from '@nestjs/passport/dist/auth.guard';
 import { Animal } from './entities/animal.entity';
-import { User } from 'src/user/entities/user.entity';
-import { GetUser } from 'src/user/decorators/user.decorator';
 let path = require('path');
 
 @Controller('animals')
