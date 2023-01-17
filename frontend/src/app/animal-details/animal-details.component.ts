@@ -37,12 +37,13 @@ export class AnimalDetailsComponent implements OnInit {
     ];
     this.animal = new Animal();
     this.user = JSON.parse(localStorage.getItem('user')|| '{}');
-
     route.params.subscribe((params) => {
       const id: string = params['id'];
       this.loadAnimal(id);
     });
   }
+
+
 
   loadAnimal(id: string) {
     this.animalsService.getAnimalWithImages(id).subscribe(

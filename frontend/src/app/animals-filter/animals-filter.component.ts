@@ -3,20 +3,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Constants } from 'src/app/constants/Constants';
 import { AnimalType } from '../Enums/animalTypeEnum';
 import { Gender } from '../Enums/genderEnum';
+import { AnimalsService } from '../services/animals.service';
 @Component({
   selector: 'app-animals-filter',
   templateUrl: './animals-filter.component.html',
   styleUrls: ['./animals-filter.component.css'],
 })
 export class AnimalsFilterComponent implements OnInit {
-  constructor() { }
+  constructor(private animalsService: AnimalsService) { }
   genderList: Array<string> = Object.keys(Gender).filter((key) => isNaN(+key));
   animalsList: Array<string> = Object.keys(AnimalType).filter((key) =>
     isNaN(+key)
   );
   selectedGender: Gender | undefined;
   selectedAnimalType: AnimalType | undefined;
-  selectedBreed: string | undefined;  
+  selectedBreed: string | undefined;
   @Output()
   changeFilterEvent = new EventEmitter<string>();
 
@@ -38,22 +39,7 @@ export class AnimalsFilterComponent implements OnInit {
     this.getAnimalsByFilter();
   }
   selectAnimal(event: any): void {
-    switch (event.value) {
-      case 0:
-        this.selectedAnimalType = AnimalType.Dog;
-        break;
-      case 1:
-        this.selectedAnimalType = AnimalType.Cat;
-        break;
-      case 2:
-        this.selectedAnimalType = AnimalType.Goat;
-        break;
-      case 3:
-        this.selectedAnimalType = AnimalType.Sheep;
-        break;
-      default:
-        this.selectedAnimalType = undefined;
-    }
+    this.selectedAnimalType = event.value;
     this.getAnimalsByFilter();
   }
 
@@ -64,12 +50,12 @@ export class AnimalsFilterComponent implements OnInit {
       filter.gender = this.selectedGender.toString();
     }
     if (this.selectedAnimalType != undefined) {
-      filter.type = this.selectedAnimalType.toString();
+      filter.type = this.selectedAnimalType;
     }
     if (this.selectedBreed != undefined) {
       filter.breed = this.selectedBreed.toString();
     }
-
+    console.log(this.selectedAnimalType);
     this.changeFilterEvent.emit(filter);
   }
 }

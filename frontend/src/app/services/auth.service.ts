@@ -16,13 +16,24 @@ export class AuthService {
   login(loginUserDto: LoginUserDto) {
     return this.http.post<LoginResponseDto>(BASE_URL + LOGIN_URL, loginUserDto);
   }
+
   signup(addUserDto: AddUserDto) {
-    return this.http.post<User>(BASE_URL+SIGNUP_URL,{...addUserDto});
+    return this.http.post<User>(BASE_URL + SIGNUP_URL, {...addUserDto});
   }
+
   isLoggedIn(): boolean {
     return this.getToken() != null;
   }
+
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  getUser(): User  {
+    let userFromLocalStorage = localStorage.getItem('user')
+    if (userFromLocalStorage != null) {
+      return JSON.parse(userFromLocalStorage) as User;
+    }
+    throw Error('user not found');
   }
 }

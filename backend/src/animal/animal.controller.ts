@@ -14,10 +14,8 @@ import {
   HttpException,
   UploadedFiles,
   UseGuards,
-  Req,
-  ParseBoolPipe,
-} from '@nestjs/common';
-import { AnimalType } from 'src/util/enums/animal.enum';
+  Req, Res
+} from "@nestjs/common";
 import { Gender } from 'src/util/enums/gender.enum';
 import { AnimalService } from './animal.service';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
@@ -26,6 +24,9 @@ import { diskStorage } from 'multer';
 import configuration from 'src/config/configuration';
 import { AuthGuard } from '@nestjs/passport/dist/auth.guard';
 import { Animal } from './entities/animal.entity';
+import { GetUser } from "../user/decorators/user.decorator";
+import { User } from "../user/entities/user.entity";
+import { isDefined } from 'class-validator';
 let path = require('path');
 
 @Controller('animals')
@@ -86,22 +87,26 @@ export class AnimalController {
     return this.animalService.findAll(userId,shouldBringImages);
   }
 
+  @UseInterceptors(EncodeAnimalImagesInterceptor)
+  @Get('filter')
   findByFilters(
-    @Query('gender') gender: Gender,
-    @Query('type') animal: AnimalType,
-    @Query('breed') breed: string,
+    @Req() req,
+    @Query('gender') gender: string,
+    @Query('type') animal: string,
+    @Query('breed') breed: any,
+    @Query('shouldBringImages', new DefaultValuePipe(false)) shouldBringImages: boolean,
   ) {
-    var filter = {};
-    if (gender) {
-      filter['gender'] = gender;
+    const filter: any = {};
+    if (isDefined(gender)) {
+      filter.gender = gender;
     }
-    if (animal) {
-      filter['type'] = animal;
+    if (isDefined(animal)) {
+      filter.type = animal;
     }
-    if (breed) {
-      filter['breed'] = breed;
+    if (isDefined(breed)) {
+      filter.breed = breed;
     }
-    return this.animalService.getAnimalsByFilter(filter);
+    return this.animalService.getAnimalsByFilter(filter, shouldBringImages);
   }
 
   @UseInterceptors(EncodeAnimalImagesInterceptor)
@@ -129,5 +134,11 @@ export class AnimalController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.animalService.remove(+id);
+  }
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(EncodeAnimalImagesInterceptor)
+  @Get('my/animals')
+  async getAnimalsByUser(@GetUser() user: User) {
+    return await this.animalService.getAnimalsByUser(user.id);
   }
 }

@@ -4,9 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
 import { addAnimalDto } from '../dto/addAnimalDto';
-import { AuthService } from './auth.service';
+import {BASE_URL, MY_ANIMALS_URL} from '../helpers/constants';
+import { FormRecord } from '@angular/forms';
 import {Constants} from "../constants/Constants";
-import {BASE_URL, LOGIN_URL} from "../helpers/constants";
+import { AuthService } from './auth.service';
+import { AnimalType } from '../Enums/animalTypeEnum';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +69,16 @@ export class AnimalsService {
     });
   }
 
+  getAllSpecies(): Array<any> {
+    const SpeciesList: Array<any> = [
+      { name: 'Dog', Id: AnimalType.Dog },
+      { name: 'Cat', Id: AnimalType.Cat },
+      { name: 'Goat', Id: AnimalType.Goat },
+      { name: 'Sheep', Id: AnimalType.Sheep },
+    ];
+    return SpeciesList;
+  }
+
   getAnimalImagesToDisplay(animal: Animal): any[] {
     if (
       animal.images.length > 0 &&
@@ -86,6 +98,15 @@ export class AnimalsService {
         },
       ];
     }
+  }
+  getAnimalsByUser(ownerId : string){
+    const  token = this.authService.getToken()
+    const shouldEncodeImages = true;
+    return this.http.get<Animal[]>(BASE_URL+MY_ANIMALS_URL,{
+      params: {  shouldEncodeImages },
+      responseType: 'json',
+      headers: new HttpHeaders().append('Authorization', `Bearer ${token!.substring(1, token!.length - 1)}`)
+    })
   }
 }
 

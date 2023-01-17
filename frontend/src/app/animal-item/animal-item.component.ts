@@ -11,11 +11,14 @@ import { Gender } from '../Enums/genderEnum';
 })
 export class AnimalItemComponent implements OnInit {
   @Input() animal: any = {};
-
+  images: null | any[] = null;
   constructor(private router: Router, private animalsService: AnimalsService) { }
   getImages(animal: Animal): any[] {
-    return this.animalsService.getAnimalImagesToDisplay(animal);
-  } 
+    if (this.images === null) {
+      return this.images = this.animalsService.getAnimalImagesToDisplay(animal);
+    }
+    return this.images;
+  }
 
   getGenderName(gender: Gender) {
     if (gender == Gender.Male) {

@@ -34,13 +34,7 @@ export class AddAnimalComponent implements OnInit {
   }
 
   getSpecies(): Array<any> {
-    const SpeciesList: Array<any> = [
-      { name: 'Dog', Id: AnimalType.Dog },
-      { name: 'Cat', Id: AnimalType.Cat },
-      { name: 'Goat', Id: AnimalType.Goat },
-      { name: 'Sheep', Id: AnimalType.Sheep },
-    ];
-    return SpeciesList;
+    return this.animalsService.getAllSpecies();
   }
 
   onAddFiles(event: any) {

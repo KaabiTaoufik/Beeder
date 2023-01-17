@@ -19,11 +19,10 @@ export class AnimalsListComponent implements OnInit {
 
   onFilterChange(filter: any): void {
     this.isLoading = true;
-    const animalURL = Constants.API_URL + '/animals/';
+    const animalFilterURL = Constants.API_URL + '/animals/filter/';
     filter.shouldBringImages = true;
     filter.shouldEncodeImages = true;
-    this.httpClient.get<Animal[]>(animalURL, { params: filter }).subscribe((animals) => {
-      console.log(animals);
+    this.httpClient.get<Animal[]>(animalFilterURL, { params: filter }).subscribe((animals) => {
       this.isLoading = false;
       this.animalList = animals;
     });

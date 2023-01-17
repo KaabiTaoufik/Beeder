@@ -1,26 +1,30 @@
 <nav class="navbar navbar-expand-sm w-100">
-  <ul class="nav w-25 margin-left-50">
+  <ul class="nav margin-left-50 flex-grow-1">
     <li class="nav-item">
       <a [routerLink]="[HomeRoute]" class="nav-link" routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact:true}">Home</a>
+        [routerLinkActiveOptions]="{exact:true}">Home</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="[RequestsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
-         [routerLinkActiveOptions]="{exact:true}">Requests</a>
+        [routerLinkActiveOptions]="{exact:true}">Requests</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="[AddAnimalRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
-         [routerLinkActiveOptions]="{exact:true}">Add an animal</a>
+        [routerLinkActiveOptions]="{exact:true}">Add Animal</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[MyAnimalsRoute]" routerLinkActive="active" *ngIf="isLoggedIn()"
+        [routerLinkActiveOptions]="{exact:true}">My Animals</a>
     </li>
   </ul>
-  <ul class="nav mx-auto w-50 justify-content-center">
+  <ul class="nav mx-auto justify-content-center flex-grow-0">
     <li class="nav-item">
       <a class="nav-link bg-darkOrange fw-bolder" style="color:#FEBB59;" [routerLink]="[HomeRoute]">
         Breed<span style="color: white">r</span>
       </a>
     </li>
-    </ul>
-  <ul class="nav w-25 justify-content-end margin-right-50">
+  </ul>
+  <ul class="nav justify-content-end margin-right-50 flex-grow-2">
     <li class="nav-item" [ngSwitch]="isLoggedIn()">
       <button *ngSwitchCase="true" type="button" class="btn btn-GetStarted btn-primary btn-sm" (click)="logout()">
         Logout
