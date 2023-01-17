@@ -1,23 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBreedingRequestDto } from './dto/create-breeding-request.dto';
 import { UpdateBreedingRequestDto } from './dto/update-breeding-request.dto';
+import {Repository} from "typeorm";
+import {InjectRepository} from "@nestjs/typeorm";
+import {CreateBreedingRequestDto} from "./dto/create-breeding-request.dto";
+import {BreedingRequest} from "./entities/breeding-request.entity";
+import {RequestStateEnum} from "../util/enums/requestState.enum";
 
 @Injectable()
 export class BreedingRequestService {
-  create(createBreedingRequestDto: CreateBreedingRequestDto) {
-    return 'This action adds a new breedingRequest';
+  constructor(
+      @InjectRepository(BreedingRequest)
+      private breedingRequestRepository: Repository<BreedingRequest>) {
   }
 
-  findAll() {
-    return `This action returns all breedingRequest`;
+  create(createBreedingRequestDto: CreateBreedingRequestDto) {
+    const breedingRequest = this.breedingRequestRepository.create(createBreedingRequestDto);
+    console.log(createBreedingRequestDto)
+    return this.breedingRequestRepository.save(breedingRequest);
+  }
+
+  findAll(state: RequestStateEnum) :Promise<BreedingRequest[]>{
+    console.log(state)
+      return this.breedingRequestRepository.find({
+        relations: {
+          to: true,
+          from: true,
+        },
+        where :{state}
+      });
   }
 
   findOne(id: number) {
     return `This action returns a #${id} breedingRequest`;
   }
 
-  update(id: number, updateBreedingRequestDto: UpdateBreedingRequestDto) {
-    return `This action updates a #${id} breedingRequest`;
+  update(updatedBreedingRequest: BreedingRequest) {
+    return this.breedingRequestRepository.save(updatedBreedingRequest);
   }
 
   remove(id: number) {

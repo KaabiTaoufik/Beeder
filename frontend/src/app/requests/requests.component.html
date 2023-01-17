@@ -1,0 +1,20 @@
+
+    <div class="container">
+      <h4 class="margin-left-50 mt-5"> incoming requests : </h4>
+      <div class="accordion mt-3 " >
+      <div  *ngFor="let animal of myAnimals  let i = index" class="accordion-item mt-5">
+        <div *ngIf="animal != null && animal.type != null && requestsByAnimal" >
+          <h2 class="accordion-header" id="request{{i}}">
+            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" attr.data-bs-target="#collapse{{i}}">{{animal.type}} <span class="badge bg-black position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary ">
+            {{requestsByAnimal[animal.id] ? requestsByAnimal[animal.id].length : 0 }}</span>
+            </button>
+          </h2>
+          <div  id="collapse{{i}}" *ngFor="let incomingRequest of requestsByAnimal[animal.id] "class="list-group accordion-collapse collapse" data-bs-parent="#myAccordion">
+            <div *ngIf="shouldShowRequest(incomingRequest)" class="card-body list-group-item">
+              <p>full name : {{incomingRequest.from.fullname}}</p>
+              <p>phone number : {{incomingRequest.from.phoneNumber}}</p>
+              <button class ="btn btn-success " style="color: greenyellow"(click)="approve(incomingRequest)">approve</button><button style="color: red" class ="btn btn-danger m-2" (click)="decline(incomingRequest)">decline</button></div>          </div>
+        </div>
+        </div>
+      </div>
+</div>

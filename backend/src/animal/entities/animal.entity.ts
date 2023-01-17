@@ -1,5 +1,4 @@
 import { AnimalImage } from './animal-image.entity';
-import { BreedingRequest } from './../../breeding-request/entities/breeding-request.entity';
 import { Timestamp } from './../../util/entities/timestamp.entity';
 import { Gender } from './../../util/enums/gender.enum';
 import { User } from './../../user/entities/user.entity';
@@ -10,6 +9,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import {BreedingRequest} from "../../breeding-request/entities/breeding-request.entity";
 
 @Entity('animals')
 export class Animal extends Timestamp {
@@ -37,8 +37,6 @@ export class Animal extends Timestamp {
   @OneToMany(() => AnimalImage, (image) => image.animal)
   images: AnimalImage[] | string[];
 
-  @OneToMany(() => BreedingRequest, (request) => request.from)
-  requestsFrom: BreedingRequest[];
 
   @OneToMany(() => BreedingRequest, (request) => request.to)
   requestsTo: BreedingRequest[];

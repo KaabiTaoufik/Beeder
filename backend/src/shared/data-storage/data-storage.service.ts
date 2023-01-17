@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { readFileSync } from 'fs';
+import { StorageEngine, diskStorage } from 'multer';
 
 @Injectable()
 export class DataStorageService {

@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row pb-4 pt-4">
+        <div class="col-12">
+            <h1 class="display-4"> Add a new animal</h1>
+        </div>
+        <form #animalForm="ngForm" (ngSubmit)="onSubmit(animalForm)" class="form">
+            <div class="row">
+                <div class="col-md-6 mt-4">
+                    <div class="input-item">
+                        <input type="text" class="input-field" ngModel required minlength="4" name="name" placeholder="Animal name">
+                        <img src="assets/paw.svg" class="input-logo" alt="logo">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="input-item">
+                        <select ngModel required name="gender" [value]='getGenders()[0].value'>
+                            <option *ngFor="let gender of getGenders()" [ngValue]="gender.value">
+                                {{ gender.name }}
+                            </option>
+                        </select>
+                        <img src="assets/sex.svg" class="input-logo" alt="logo">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="input-item">
+                        <input type="number" class=" input-field" ngModel required name="age" placeholder="Animal Age"
+                            min="0" max="100">
+                        <img src="assets/age.svg" class="input-logo" alt="logo">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4">
+                    <div class="input-item">
+                        <select ngModel required name="specie">
+                            <option *ngFor="let specie of getSpecies()" [ngValue]="specie.name">
+                                {{ specie.name }}
+                            </option>
+                        </select>
+                        <img src="assets/species.png" class="input-logo" alt="logo">
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div classe="col-12 mt-3">
+                <h3 class="text-center"> Add your cute animal photos</h3>
+            </div>
+
+            <div class="images-container" *ngIf="imagePreviews.length > 0">
+                <div *ngFor="let url of imagePreviews, let index = index;" class="preview-image preview-show-1">
+                    <div class="image-zone">
+                        <button type="button" class="image-cancel btn-close btn-close-white" aria-label="Remove"
+                            (click)="onRemoveImage(index)"></button>
+                        <img id="pro-img-1" [src]="url" (click)="onImageClick(index)">
+                    </div>
+                </div>
+                <div class="preview-image">
+                    <div class="add-image-div text-white">
+                        <label for="files-input">
+                            Add Image
+                            <img src="assets/upload_photo.png" class="">
+                        </label>
+                        <input name="files" id="files-input2" type="file" accept="image/*" class="form-control"
+                            (change)="onAddFiles($event)" multiple>
+                    </div>
+                </div>
+            </div>
+
+            <input *ngIf="imagePreviews.length === 0" name="files" id="files-input" type="file" accept="image/*"
+                class="form-control" (change)="onAddFiles($event)" multiple placeholder="Add your pet photos">
+            <br>
+            <button class="btn btn-primary "> Add </button>
+        </form>
+    </div>
+</div>
