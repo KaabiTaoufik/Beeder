@@ -24,6 +24,7 @@ import { AnimalItemComponent } from './animal-item/animal-item.component';
 import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
 import { DatepipePipe } from './datepipe.pipe';
 import {AuthGuard} from "./guards/auth.guard";
+import {RequestsComponent} from "./requests/requests.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {AuthGuard} from "./guards/auth.guard";
     AnimalItemComponent,
     LoadingCircleComponent,
     DatepipePipe,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
