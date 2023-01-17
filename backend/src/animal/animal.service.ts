@@ -64,6 +64,9 @@ export class AnimalService {
       options.relations = { ...options.relations, images: true };
     }
     const animal = await this.animalRepository.findOne(options);
+    if (animal?.owner) {
+      delete animal.owner.password;
+    }
     return animal;
   }
 

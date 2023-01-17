@@ -1,8 +1,10 @@
+import { RouteNames } from './../Route-Names.model';
 import { AnimalsService } from './../services/animals.service';
 import { Animal } from './../models/animal';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gender } from '../Enums/genderEnum';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-animal-details',
@@ -19,7 +21,8 @@ export class AnimalDetailsComponent implements OnInit {
 
   constructor(
     private animalsService: AnimalsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.images = [
       {
@@ -37,10 +40,20 @@ export class AnimalDetailsComponent implements OnInit {
   }
 
   loadAnimal(id: string) {
-    this.animalsService.getAnimalWithImages(id).subscribe((animal) => {
-      this.animal = animal;
-      this.setAnimalImagesToDisplay(this.animal);
-    });
+    this.animalsService.getAnimalWithImages(id).subscribe(
+      (animal) => {
+        this.animal = animal;
+        this.setAnimalImagesToDisplay(this.animal);
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse.status === 0) {
+          console.log('An error occured: ', errorResponse.error);
+        } else {
+          console.log('Backend responded with an error: ', errorResponse.error);
+          this.router.navigate([RouteNames.HOME]);
+        }
+      }
+    );
   }
 
   setAnimalImagesToDisplay(animal: Animal): void {

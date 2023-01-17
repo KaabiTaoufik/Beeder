@@ -8,9 +8,10 @@ import {
   Param,
   Delete,
   Query,
-  ParseBoolPipe,
   UseInterceptors,
   DefaultValuePipe,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 import { AnimalType } from 'src/util/enums/animal.enum';
 import { Gender } from 'src/util/enums/gender.enum';
@@ -56,12 +57,19 @@ export class AnimalController {
 
   @UseInterceptors(EncodeAnimalImagesInterceptor)
   @Get(':id')
-  findOne(
+  async findOne(
     @Param('id') id: string,
     @Query('shouldBringImages', new DefaultValuePipe(false))
     shouldBringImages: boolean,
   ) {
-    return this.animalService.findOne(id, shouldBringImages);
+    const animal = await this.animalService.findOne(id, shouldBringImages);
+    if (!animal) {
+      throw new HttpException(
+        'There is no animal with the given id',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return animal;
   }
 
   @Patch(':id')
