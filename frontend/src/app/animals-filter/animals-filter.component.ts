@@ -1,6 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Constants } from 'src/app/constants/Constants';
 import { AnimalType } from '../Enums/animalTypeEnum';
 import { Gender } from '../Enums/genderEnum';
 import { AnimalsService } from '../services/animals.service';

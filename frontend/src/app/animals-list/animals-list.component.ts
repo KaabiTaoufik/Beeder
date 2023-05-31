@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Gender } from '../Enums/genderEnum';
-import { Constants } from '../constants/Constants';
 import { HttpClient } from '@angular/common/http';
 import { Animal } from '../models/animal';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-animals-list',
@@ -19,7 +19,7 @@ export class AnimalsListComponent implements OnInit {
 
   onFilterChange(filter: any): void {
     this.isLoading = true;
-    const animalFilterURL = Constants.API_URL + '/animals/filter/';
+    const animalFilterURL = environment.API_URL + '/animals/filter/';
     filter.shouldBringImages = true;
     filter.shouldEncodeImages = true;
     this.httpClient.get<Animal[]>(animalFilterURL, { params: filter }).subscribe((animals) => {

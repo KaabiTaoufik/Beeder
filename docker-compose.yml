@@ -1,0 +1,29 @@
+services:
+    frontend:
+        build: ./frontend
+        ports:
+            - '8080:80'
+    backend:
+        build: ./backend
+        environment:
+            - DB_HOST=db
+            - DB_PORT=3306
+            - DB_USERNAME=root
+            - DB_PASSWORD=p@ssword
+            - DATABASE=Breedr
+            - STORAGE_DIRECTORY=/storage
+            - JWT_SECRET=YOUR_JWT_SECRET
+        ports:
+            - '3000:3000'
+        networks:
+            - my_net
+        depends_on:
+            - db
+    db:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=p@ssword
+        networks:
+            - my_net
+networks:
+    my_net:

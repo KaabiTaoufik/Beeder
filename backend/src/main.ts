@@ -1,14 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DataSourceOptions } from 'typeorm';
-import { createDatabase } from 'typeorm-extension';
 import { AppModule } from './app.module';
 import configuration from './config/configuration';
-const path = require('path');
-const fs = require('fs');
+import { createDatabaseWithRetries } from './util/database';
+import { createImagesDirectory } from './util/storage';
 
 async function bootstrap() {
   //create database if it does not exist
-  const { database, storageDirectory } = configuration();
+  const { database } = configuration();
   const options: DataSourceOptions = {
     type: database.type as 'mysql' | 'postgres',
     database: database.database,
@@ -18,18 +17,12 @@ async function bootstrap() {
     password: database.password,
   };
 
-  await createDatabase({
+  await createDatabaseWithRetries({
     ifNotExist: true,
     options: options,
   });
 
-  const imagesDirectory = path.join(storageDirectory, "images");
-  if (!fs.existsSync(imagesDirectory)) {
-    fs.mkdirSync(imagesDirectory, { recursive: true });
-    console.log(`Directory created: ${imagesDirectory}`);
-  } else {
-    console.log(`Directory ${imagesDirectory} exists!`);
-  }
+  createImagesDirectory();
 
   const app = await NestFactory.create(AppModule);
   app.enableCors();

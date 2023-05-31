@@ -1,5 +1,5 @@
-import { Constants } from './Constants';
+import { environment } from 'src/environments/environment';
 export class APINames {
-  static ANIMALS: string = `${Constants.API_URL}/animals`;
-  static ADDANIMAL: string = `${Constants.API_URL}/add/animals`;
+  static ANIMALS: string = `${environment.API_URL}/animals`;
+  static ADDANIMAL: string = `${environment.API_URL}/add/animals`;
 }

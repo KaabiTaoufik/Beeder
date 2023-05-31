@@ -4,11 +4,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from '../models/animal';
 import { addAnimalDto } from '../dto/addAnimalDto';
-import {BASE_URL, MY_ANIMALS_URL} from '../helpers/constants';
-import { FormRecord } from '@angular/forms';
-import {Constants} from "../constants/Constants";
+import { MY_ANIMALS_URL } from '../helpers/constants';
 import { AuthService } from './auth.service';
 import { AnimalType } from '../Enums/animalTypeEnum';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +18,7 @@ export class AnimalsService {
   getAnimals(userId:string,
                      shouldBringImages: boolean,
                      shouldEncodeImages: boolean): Observable<Animal[]> {
-    const url = `${Constants.API_URL}/animals/`;
+    const url = `${environment.API_URL}/animals/`;
     return this.http.get<Animal[]>(url, {
       params: { userId ,shouldBringImages },
     });
@@ -56,7 +55,7 @@ export class AnimalsService {
 
     const token = this.authService.getToken();
     if (token !== null) {
-      return this.http.post<Animal>(`${BASE_URL}/animals/add`,
+      return this.http.post<Animal>(`${environment.API_URL}/animals/add`,
         formData,
         {
           responseType: 'json',
@@ -102,7 +101,7 @@ export class AnimalsService {
   getAnimalsByUser(ownerId : string){
     const  token = this.authService.getToken()
     const shouldEncodeImages = true;
-    return this.http.get<Animal[]>(BASE_URL+MY_ANIMALS_URL,{
+    return this.http.get<Animal[]>(environment.API_URL+MY_ANIMALS_URL,{
       params: {  shouldEncodeImages },
       responseType: 'json',
       headers: new HttpHeaders().append('Authorization', `Bearer ${token!.substring(1, token!.length - 1)}`)

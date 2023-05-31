@@ -1,0 +1,6 @@
+# ignore the dist folder
+dist/
+# ignore the dependencies
+node_modules/
+# ignore .env files because env variables are set in the docker-compose file
+.env*
